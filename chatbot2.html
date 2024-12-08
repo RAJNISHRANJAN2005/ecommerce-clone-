@@ -1,0 +1,130 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <title>Myntra Functional Clone</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        /* Chatbot Styles */
+        #chatbox-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            display: none;
+            z-index: 1000;
+        }
+
+        #chatbox {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            overflow-y: auto;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #user-input {
+            width: calc(100% - 50px);
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #send-button {
+            padding: 5px 10px;
+            border: none;
+            background-color: #ff3e6c;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-left: 5px;
+        }
+
+        #chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #ff3e6c;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Header content remains unchanged -->
+        <!-- ... -->
+    </header>
+    <main>
+        <div class="items-container">
+            <!-- Main content remains unchanged -->
+        </div>
+    </main>
+    <footer>
+        <!-- Footer content remains unchanged -->
+        <!-- ... -->
+    </footer>
+
+    <!-- Chatbot UI -->
+    <button id="chat-toggle">💬</button>
+    <div id="chatbox-container">
+        <div id="chatbox"></div>
+        <input type="text" id="user-input" placeholder="Type your message here">
+        <button id="send-button">Send</button>
+    </div>
+
+    <script>
+        // Chatbot Logic
+        const chatbox = document.getElementById('chatbox');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        const chatToggle = document.getElementById('chat-toggle');
+        const chatboxContainer = document.getElementById('chatbox-container');
+
+        // Toggle Chatbox Visibility
+        chatToggle.addEventListener('click', () => {
+            const isVisible = chatboxContainer.style.display === 'block';
+            chatboxContainer.style.display = isVisible ? 'none' : 'block';
+        });
+
+        sendButton.addEventListener('click', () => {
+            const userText = userInput.value.trim();
+            if (userText) {
+                // Display user's message
+                const userMessage = document.createElement('div');
+                userMessage.textContent = "You: " + userText;
+                chatbox.appendChild(userMessage);
+
+                // Generate bot response
+                const botMessage = document.createElement('div');
+                botMessage.textContent = "Bot: " + getBotResponse(userText);
+                chatbox.appendChild(botMessage);
+
+                // Clear input and scroll to the bottom
+                userInput.value = '';
+                chatbox.scrollTop = chatbox.scrollHeight;
+            }
+        });
+
+        // Simple chatbot response logic
+        function getBotResponse(input) {
+            const responses = {
+                "hello": "Hi there! Welcome to Myntra!",
+                "how are you": "I'm a bot, here to assist you! How can I help?",
+                "bye": "Goodbye! Have a great shopping experience!",
+            };
+            return responses[input.toLowerCase()] || "I'm not sure how to respond to that. Try asking something else!";
+        }
+    </script>
+</body>
+</html>
